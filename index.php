@@ -1,48 +1,48 @@
 <!---- ARRAY ASSOCIATIVO ---->
 <?php
-    $hotels = [
-        // 0°
-        [
-            'name'                  => 'Hotel Belvedere',
-            'description'           => 'Hotel Belvedere Descrizione',
-            'parking'               => true,
-            'vote'                  => 4,
-            'distance_to_center'    => 10.4
-        ],
-        // 1°
-        [
-            'name'                  => 'Hotel Futuro',
-            'description'           => 'Hotel Futuro Descrizione',
-            'parking'               => true,
-            'vote'                  => 2,
-            'distance_to_center'    => 2
-        ],
-        // 2°
-        [
-            'name'                  => 'Hotel Rivamare',
-            'description'           => 'Hotel Rivamare Descrizione',
-            'parking'               => false,
-            'vote'                  => 1,
-            'distance_to_center'    => 1
-        ],
-        // 3°
-        [
-            'name'                  => 'Hotel Bellavista',
-            'description'           => 'Hotel Bellavista Descrizione',
-            'parking'               => false,
-            'vote'                  => 5,
-            'distance_to_center'    => 5.5
-        ],
-        // 4°
-        [
-            'name'                  => 'Hotel Milano',
-            'description'           => 'Hotel Milano Descrizione',
-            'parking'               => true,
-            'vote'                  => 2,
-            'distance_to_center'    => 50
-        ],
+$hotels = [
+    // 0°
+    [
+        'name'                  => 'Hotel Belvedere',
+        'description'           => 'Hotel Belvedere Descrizione',
+        'parking'               => true,
+        'vote'                  => 4,
+        'distance_to_center'    => 10.4
+    ],
+    // 1°
+    [
+        'name'                  => 'Hotel Futuro',
+        'description'           => 'Hotel Futuro Descrizione',
+        'parking'               => true,
+        'vote'                  => 2,
+        'distance_to_center'    => 2
+    ],
+    // 2°
+    [
+        'name'                  => 'Hotel Rivamare',
+        'description'           => 'Hotel Rivamare Descrizione',
+        'parking'               => false,
+        'vote'                  => 1,
+        'distance_to_center'    => 1
+    ],
+    // 3°
+    [
+        'name'                  => 'Hotel Bellavista',
+        'description'           => 'Hotel Bellavista Descrizione',
+        'parking'               => false,
+        'vote'                  => 5,
+        'distance_to_center'    => 5.5
+    ],
+    // 4°
+    [
+        'name'                  => 'Hotel Milano',
+        'description'           => 'Hotel Milano Descrizione',
+        'parking'               => true,
+        'vote'                  => 2,
+        'distance_to_center'    => 50
+    ],
 
-    ];
+];
 ?>
 
 <!---- FILTRO ---->
@@ -51,35 +51,38 @@
 $filter = $hotels;
 
 // questo filtro gestisce i parcheggi
-if (isset($_GET['parking']) && $_GET['parking'] !== 'all') {
+if (isset($_GET['parcheggio']) && $_GET['parcheggio'] !== 'all') {
     $filter = array_filter($filter, function ($hotel) {
-        return $hotel['parking'] === ($_GET['parking'] === 'park');
+        return $hotel['parking'] === ($_GET['parcheggio'] === 'park');
     });
-}
+};
 
 // questo filtro gestisce i voti
-if (isset($_GET['vote']) && $_GET['vote'] !== 'all') {
+if (isset($_GET['voto']) && $_GET['voto'] !== 'all') {
     $filter = array_filter($filter, function ($hotel) {
-        return $hotel['vote'] >= $_GET['vote'];
+        return $hotel['vote'] >= $_GET['voto'];
     });
-}
+};
 
 // questo filtro gestisce il reset in caso di filtri vuoti
-if ($_GET['parking'] == 'all' && $_GET['vote'] == 'all') {
+if ($_GET['parcheggio'] === 'all' && $_GET['voto'] === 'all') {
     $filter = $hotels;
-}
+};
 ?>
+
 
 
 <!------------------ INIZIO HTML ------------------>
 <!doctype html>
-<html lang="en">
+<html lang="it">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous" defer></script>
     <title>PHP Hotel</title>
+    <!-- css style -->
     <style>
         * {
             margin: 0px;
@@ -133,22 +136,23 @@ if ($_GET['parking'] == 'all' && $_GET['vote'] == 'all') {
 </head>
 
 <!---- BODY ---->
+
 <body class="bg-dark text-white">
     <div class="container d-flex flex-column align-items-center pt-5">
         <h1 class="pb-5">PHP Hotel</h1>
         <!-- FORM -->
         <form action="" method="GET" class="d-flex pb-5">
             <div class="select">
-                <label for="parking">Parcheggi: </label>
-                <select name="parking" id="parking">
+                <label for="parcheggio">Parcheggi: </label>
+                <select name="parcheggio" id="parcheggio">
                     <option value="all" selected>Tutti gli Hotel</option>
                     <option value="park">Con Parcheggio</option>
                     <option value="noPark">Senza Parcheggio</option>
                 </select>
             </div>
             <div class="select">
-                <label for="vote">Voto: </label>
-                <select name="vote" id="vote">
+                <label for="voto">Voto: </label>
+                <select name="voto" id="voto">
                     <option value="all" selected>Seleziona</option>
                     <option value="1">1 / 5</option>
                     <option value="2">2 / 5</option>
@@ -163,7 +167,7 @@ if ($_GET['parking'] == 'all' && $_GET['vote'] == 'all') {
         <!-- TABLE -->
         <table class="table table-dark table-striped">
             <thead>
-                <tr> 
+                <tr>
                     <th>Nome</th>
                     <th>Descrizione</th>
                     <th>Parcheggio</th>
@@ -172,17 +176,18 @@ if ($_GET['parking'] == 'all' && $_GET['vote'] == 'all') {
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($filter as $value) { ?>
+                <?php foreach ($filter as $value) { ?>
                     <tr>
-                        <td><?php echo $value['name']; ?></td>
+                        <th><?php echo $value['name']; ?></th>
                         <td><?php echo $value['description']; ?></td>
                         <td><?php echo $value['parking'] ? 'Sì' : 'No'; ?></td>
-                        <td><?php echo "{$value['vote']} / 5"; ?></td>
-                        <td><?php echo "{$value['distance_to_center']} km"; ?></td>
+                        <td><?php echo $value['vote']; ?> / 5</td>
+                        <td><?php echo $value['distance_to_center']; ?> km</td>
                     </tr>
                 <?php } ?>
             </tbody>
         </table>
     </div>
 </body>
+
 </html>
