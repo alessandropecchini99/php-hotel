@@ -71,7 +71,7 @@ if ($_GET['parking'] == 'all' && $_GET['vote'] == 'all') {
 ?>
 
 
-<!---- INIZIO HTML ---->
+<!------------------ INIZIO HTML ------------------>
 <!doctype html>
 <html lang="en">
 <head>
