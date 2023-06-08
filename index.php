@@ -50,6 +50,11 @@ $hotels = [
 // creo una variabile dinamica in base alle scelte del select
 $filter = $hotels;
 
+// questo filtro gestisce il reset in caso di filtri vuoti
+if (isset($_GET['parcheggio']) && $_GET['parcheggio'] === 'all' && isset($_GET['voto']) && $_GET['voto'] === 'all') {
+    $filter = $hotels;
+};
+
 // questo filtro gestisce i parcheggi
 if (isset($_GET['parcheggio']) && $_GET['parcheggio'] !== 'all') {
     $filter = array_filter($filter, function ($hotel) {
@@ -62,11 +67,6 @@ if (isset($_GET['voto']) && $_GET['voto'] !== 'all') {
     $filter = array_filter($filter, function ($hotel) {
         return $hotel['vote'] >= $_GET['voto'];
     });
-};
-
-// questo filtro gestisce il reset in caso di filtri vuoti
-if ($_GET['parcheggio'] === 'all' && $_GET['voto'] === 'all') {
-    $filter = $hotels;
 };
 ?>
 
